@@ -13,18 +13,20 @@ import { fonts } from '../lib/font'
 export default function MyApp({ Component, pageProps }: AppProps) {
   return (
     <>
-    <style jsx global>
+      {/* <style jsx global>
       {`
         :root {
           --font-rubik: ${fonts.rubik.style.fontFamily};
         }
       `}
-    </style>
-    <Layout>
+    </style> */}
       <ChakraProvider theme={theme}>
-        <Component {...pageProps} />
+        <main className={fonts.roboto.className}>
+          <Layout>
+            <Component {...pageProps} />
+          </Layout>
+        </main>
       </ChakraProvider>
-    </Layout>
     </>
   );
 }

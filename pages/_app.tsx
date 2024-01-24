@@ -1,32 +1,26 @@
 import type { AppProps } from "next/app";
 import Layout from "~/layouts/layout";
 // pages/_app.js
-import { ChakraProvider } from '@chakra-ui/react'
 
-import '../styles/fonts.scss';
 import "~/styles/main.scss";
+import '../styles/fonts.scss';
+import { ChakraProvider } from '@chakra-ui/react'
 import { theme } from "~/theme/themeConfig";
 import { fonts } from '../lib/font'
 
 
 
 export default function MyApp({ Component, pageProps }: AppProps) {
+
   return (
     <>
-      {/* <style jsx global>
-      {`
-        :root {
-          --font-rubik: ${fonts.rubik.style.fontFamily};
-        }
-      `}
-    </style> */}
-      <ChakraProvider theme={theme}>
-        <main className={fonts.roboto.className}>
+      <main className={fonts.roboto.className}>
+        <ChakraProvider theme={theme}>
           <Layout>
             <Component {...pageProps} />
           </Layout>
-        </main>
-      </ChakraProvider>
+        </ChakraProvider>
+      </main>
     </>
   );
 }

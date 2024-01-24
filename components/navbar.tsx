@@ -1,5 +1,5 @@
 import Image from 'next/image';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Buttons from './button';
 import { theme } from '~/theme/themeConfig';
 import { RxHamburgerMenu } from "react-icons/rx";
@@ -12,7 +12,6 @@ const Navbar: React.FunctionComponent = (props) => {
 
     const [isOpen, setIsOpen] = useState<boolean>(false)
     const [isActive, setIsActive] = useState<number>(0)
-    console.log(isActive)
 
     const datas = [
         {
@@ -39,13 +38,26 @@ const Navbar: React.FunctionComponent = (props) => {
     const isActiveLink = (v: number) => {
         setIsActive(v)
     }
+    const handleResize = () => {
+        setIsOpen(window.innerWidth > 425 ? false : true)
+    };
+
+    useEffect(() => {
+        // Tambahkan event listener
+        window.addEventListener('resize', handleResize);
+
+        // Bersihkan event listener saat komponen di-unmount
+        return () => {
+            window.removeEventListener('resize', handleResize);
+        };
+    }, []);
 
     return (
         <header>
             <nav className='shadow-lg'>
                 <div className='flex justify-between items-center container mx-auto py-2 '>
                     <div>
-                        <Image src='/assets/logo.png' width={70} height={70} alt="Logo Kebun Raya" />
+                        <Image src='/assets/logo.png' width={70} height={70} alt="Logo Kebun Raya" priority />
                     </div>
                     <div className='md:block hidden'>
                         <ul className='flex gap-x-4'>
@@ -60,23 +72,23 @@ const Navbar: React.FunctionComponent = (props) => {
                         </ul>
                     </div>
                     <div className='items-center gap-4 md:flex  hidden'>
-                        <Buttons name='Sign In' color='green' />
-                        <Buttons name='Sign Up' variant='outline' color='green' />
+                        <Buttons name='Sign In' color='primary.400' variant='fillVariant' />
+                        <Buttons name='Sign Up' variant='outlineVariant' color='primary.400' />
                     </div>
                     <div className='block md:hidden'>
                         {isOpen ? <RxHamburgerMenu className='text-2xl' onClick={isOpenNavbar} /> : <AiOutlineClose className='text-2xl' onClick={isOpenNavbar} />}
                     </div>
                 </div>
             </nav>
-            <div className={`block md:hidden absolute left-0 w-full transition-all delay-200 ${isOpen ? 'left-[-1500px]' : 'left-0'}`}>
+            <div className={`block md:hidden absolute left-0 w-full transition-all delay-200 bg-white top-[90px] h-full ${isOpen ? 'left-[-1500px]' : 'left-0'}`}>
                 <div className='container mx-auto mt-7'>
                     <ul className='flex flex-col gap-4'>
                         <li className='title'>Home</li>
                         <li className='title'>Shop</li>
                         <li className='title'>About</li>
                         <li className='title'>Contact</li>
-                        <Buttons name='Sign In' color='green' className='mt-10' />
-                        <Buttons name='Sign Up' variant='outline' color='green' />
+                        <Buttons name='Sign In' color='primary.400' variant='fillVariant' className='mt-10' />
+                        <Buttons name='Sign Up' variant='outlineVariant' color='primary.400' />
                     </ul>
                 </div>
             </div>

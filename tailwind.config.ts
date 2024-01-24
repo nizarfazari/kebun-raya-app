@@ -35,6 +35,9 @@ const config: Config = {
           200: "#f7f7f7",
         },
         secondary: "#3498DB",
+        dark : {
+          500 : '#343434'
+        }
       },
     },
   },

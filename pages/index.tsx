@@ -1,6 +1,8 @@
 import Image from 'next/image';
 import React from 'react';
 import Buttons from '~/components/button';
+import Category from '~/components/home/category';
+import CategoryCard from '~/components/home/category/card';
 
 
 
@@ -22,6 +24,10 @@ export default function Home() {
               <Image src='/assets/banner.png' width={350} height={200} alt="Logo Kebun Raya" />
             </div>
           </div>
+        </div>
+
+        <div className='my-20'>
+          <Category />
         </div>
       </div>
     </main >

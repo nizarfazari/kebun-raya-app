@@ -3,6 +3,8 @@ import React from 'react';
 import Buttons from '~/components/button';
 import Category from '~/components/home/category';
 import CategoryCard from '~/components/home/category/card';
+import Plants from '~/components/home/plants';
+import CardPlants from '~/components/home/plants/card';
 
 
 
@@ -28,6 +30,9 @@ export default function Home() {
 
         <div className='my-20'>
           <Category />
+        </div>
+        <div>
+          <Plants />
         </div>
       </div>
     </main >

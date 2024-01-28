@@ -10,7 +10,7 @@ interface IAppProps {
 
 const Navbar: React.FunctionComponent = (props) => {
 
-    const [isOpen, setIsOpen] = useState<boolean>(false)
+    const [isOpen, setIsOpen] = useState<boolean>(true)
     const [isActive, setIsActive] = useState<number>(0)
 
     const datas = [
@@ -54,7 +54,7 @@ const Navbar: React.FunctionComponent = (props) => {
 
     return (
         <header>
-            <nav className='shadow-lg'>
+            <nav className='shadow-lg fixed w-full bg-white z-50'>
                 <div className='flex justify-between items-center container mx-auto py-2 '>
                     <div>
                         <Image src='/assets/logo.png' width={70} height={70} alt="Logo Kebun Raya" priority />
@@ -80,7 +80,7 @@ const Navbar: React.FunctionComponent = (props) => {
                     </div>
                 </div>
             </nav>
-            <div className={`block md:hidden absolute left-0 w-full transition-all delay-200 bg-white top-[90px] h-full ${isOpen ? 'left-[-1500px]' : 'left-0'}`}>
+            <div className={`z-10 block md:hidden absolute left-0 w-full transition-all delay-200 bg-white top-[90px] h-full  ${isOpen ? 'left-[-1500px]' : 'left-0'}`}>
                 <div className='container mx-auto mt-7'>
                     <ul className='flex flex-col gap-4'>
                         <li className='title'>Home</li>

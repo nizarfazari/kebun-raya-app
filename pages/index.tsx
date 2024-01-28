@@ -3,6 +3,7 @@ import React from 'react';
 import Buttons from '~/components/button';
 import Category from '~/components/home/category';
 import CategoryCard from '~/components/home/category/card';
+import DocumentationsPlant from '~/components/home/documentations';
 import Plants from '~/components/home/plants';
 import CardPlants from '~/components/home/plants/card';
 
@@ -34,6 +35,7 @@ export default function Home() {
         <div>
           <Plants />
         </div>
+        <DocumentationsPlant />
       </div>
     </main >
   )

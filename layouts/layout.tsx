@@ -9,9 +9,9 @@ import Navbar from "~/components/navbar";
   
   export default function Layout({ children }: { children: React.ReactNode }) {
     return (
-      <div className="flex flex-col min-h-screen">
+      <div className="min-h-screen">
         <Navbar />
-        <main className="flex-grow p-4">{children}</main>
+          <main className="flex-grow mt-[85px]">{children}</main>
         <Footer />
       </div>
     );

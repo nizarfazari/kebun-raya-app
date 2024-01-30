@@ -1,17 +1,20 @@
 import Image from 'next/image';
 import React, { useEffect, useState } from 'react';
-import Buttons from './button';
-import { theme } from '~/theme/themeConfig';
+
 import { RxHamburgerMenu } from "react-icons/rx";
 import { AiOutlineClose } from "react-icons/ai";
 import Link from 'next/link';
+import { useRouter } from 'next/router';
+import Buttons from './button';
 interface IAppProps {
 }
 
 const Navbar: React.FunctionComponent = (props) => {
 
     const [isOpen, setIsOpen] = useState<boolean>(true)
-    const [isActive, setIsActive] = useState<number>(0)
+    const {route } = useRouter()
+    const [isActive, setIsActive] = useState<string>( route)
+    console.log(isActive)
 
     const datas = [
         {
@@ -35,7 +38,7 @@ const Navbar: React.FunctionComponent = (props) => {
     const isOpenNavbar = () => {
         setIsOpen(!isOpen)
     }
-    const isActiveLink = (v: number) => {
+    const isActiveLink = (v: string) => {
         setIsActive(v)
     }
     const handleResize = () => {
@@ -54,7 +57,7 @@ const Navbar: React.FunctionComponent = (props) => {
 
     return (
         <header>
-            <nav className='shadow-lg fixed w-full bg-white z-50'>
+            <nav className='shadow-lg fixed w-full bg-white z-50 top-0'>
                 <div className='flex justify-between items-center container mx-auto py-2 '>
                     <div>
                         <Image src='/assets/logo.png' width={70} height={70} alt="Logo Kebun Raya" priority />
@@ -63,8 +66,8 @@ const Navbar: React.FunctionComponent = (props) => {
                         <ul className='flex gap-x-4'>
                             {
                                 datas.map((v, i) => (
-                                    <li key={i} onClick={(_) => isActiveLink(i)}>
-                                        <Link href={v.path} className={`title ${isActive === i ? 'active' : ''}`} >{v.name}</Link>
+                                    <li key={i} onClick={(_) => isActiveLink(v.path)}>
+                                        <Link href={v.path} className={`title ${isActive === v.path? 'active' : ''}`} >{v.name}</Link>
                                     </li>
                                 ))
                             }
@@ -80,7 +83,7 @@ const Navbar: React.FunctionComponent = (props) => {
                     </div>
                 </div>
             </nav>
-            <div className={`z-10 block md:hidden absolute left-0 w-full transition-all delay-200 bg-white top-[90px] h-full  ${isOpen ? 'left-[-1500px]' : 'left-0'}`}>
+            <div className={`top-0 z-10 block md:hidden absolute left-0 w-full transition-all delay-200 bg-white h-full  ${isOpen ? 'left-[-1500px]' : 'left-0'}`}>
                 <div className='container mx-auto mt-7'>
                     <ul className='flex flex-col gap-4'>
                         <li className='title'>Home</li>

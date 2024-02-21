@@ -11,7 +11,7 @@ import Navbar from "~/components/navbar";
     return (
       <div className="min-h-screen">
         <Navbar />
-          <main className="flex-grow mt-[85px]">{children}</main>
+          <main className="flex-grow ">{children}</main>
         <Footer />
       </div>
     );

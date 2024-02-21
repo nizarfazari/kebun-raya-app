@@ -56,7 +56,7 @@ const Navbar: React.FunctionComponent = (props) => {
     }, []);
 
     return (
-        <header>
+        <header className='h-[85px]'>
             <nav className='shadow-lg fixed w-full bg-white z-50 top-0'>
                 <div className='flex justify-between items-center container mx-auto py-2 '>
                     <div>

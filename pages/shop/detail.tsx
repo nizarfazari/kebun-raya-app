@@ -14,9 +14,9 @@ const DetailShop: React.FunctionComponent<IDetailShopProps> = (props) => {
 
     return (
         <div className='container mx-auto py-20'>
-            <div className='grid grid-cols-2'>
-                <div className='col-span-1 w-[80%] mx-auto'>
-                    <Image src={image} height={200} width={500} className='w-full h-[600px] mb-4' alt={'gambar tipe main'}/>
+            <div className='block sm:grid grid-cols-2'>
+                <div className='col-span-1 sm:w-[80%] sm:mx-auto mb-5'>
+                    <Image src={image} height={200} width={500} className='w-full mb-4' alt={'gambar tipe main'}/>
                     <div className='grid grid-cols-3 gap-4'>
                         <Image src={'/assets/shop/tanaman.jpg'} height={200} width={500} className='w-full ' alt={'gambar tipe 1'} />
                         <Image src={'/assets/shop/tanaman.jpg'} height={200} width={500} className='w-full ' alt={'gambar tipe 2'}/>

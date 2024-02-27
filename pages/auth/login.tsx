@@ -36,7 +36,7 @@ const Login: React.FunctionComponent<ILoginProps> = (props) => {
                                 <Input type='email' className='!bg-slate-200' />
                             </FormControl>
                             <button type="submit" className='w-full py-2 rounded-lg bg-primary-700 text-white mt-7'>Login</button>
-                            <p className='text-center font-normal text-sm'>Apakah anda sudah punya akun? <Link href={'/register'} className='text-primary-700'>Register</Link></p>
+                            <p className='text-center font-normal text-sm'>Apakah anda sudah punya akun? <Link href={'/auth/register'} className='text-primary-700 font-semibold'>Register</Link></p>
                         </form>
                     </div>
                 </div>

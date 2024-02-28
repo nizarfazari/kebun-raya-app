@@ -1,13 +1,41 @@
-import { FormControl, FormLabel, Input } from '@chakra-ui/react';
+import { FormControl, FormErrorMessage, FormLabel, Input, InputGroup, InputRightElement } from '@chakra-ui/react';
 import Image from 'next/image';
 import Link from 'next/link';
-import * as React from 'react';
-import Buttons from '~/components/button';
+import React, { useState } from 'react';
+import { SubmitHandler, useForm } from 'react-hook-form';
+import { AiFillEye, AiFillEyeInvisible } from 'react-icons/ai';
+import { yupResolver } from "@hookform/resolvers/yup"
+import * as yup from "yup"
+
 
 interface ILoginProps {
 }
 
+const schema = yup
+    .object({
+        email: yup.string().email().required(),
+        password: yup.string().required(),
+    })
+    .required()
+
 const Login: React.FunctionComponent<ILoginProps> = (props) => {
+    const [show, setShow] = useState<boolean>(false)
+    const handleClick = () => setShow(!show)
+    type Inputs = {
+        email: string
+        password: string
+    }
+
+    const {
+        register,
+        handleSubmit,
+        formState: { errors },
+    } = useForm<Inputs>({
+        resolver: yupResolver(schema),
+    })
+    const onSubmit: SubmitHandler<Inputs> = (data) => console.log(data)
+
+    console.log(errors)
     return (
         <>
             <div className='container mx-auto'>
@@ -26,16 +54,33 @@ const Login: React.FunctionComponent<ILoginProps> = (props) => {
                             Belanja kebutuhan utama, <br />
                             menjadi lebih mudah
                         </h2>
-                        <form action="" className='flex flex-col gap-4 max-w-[500px] mx-auto'>
-                            <FormControl>
-                                <FormLabel>Email address</FormLabel>
-                                <Input type='email' className='!bg-slate-200 !border !border-slate-400' />
+                        <form action="" className='flex flex-col gap-4 max-w-[500px] mx-auto' onSubmit={handleSubmit(onSubmit)}>
+                            <FormControl className='h-[90px]'>
+                                <FormLabel htmlFor='email'>Email address</FormLabel>
+                                <Input type='email' id='email' className='!bg-slate-100 !border !border-slate-600 focus-visible:!border-primary-500 focus-visible:!shadow-none' {...register('email', {
+                                    required: 'This is required',
+                                    minLength: { value: 4, message: 'Minimum length should be 4' },
+                                })} />
+                                <p className='text-rose-600'>
+                                    {errors.email && errors.email.message}
+                                </p>
                             </FormControl>
-                            <FormControl>
-                                <FormLabel>Password</FormLabel>
-                                <Input type='email' className='!bg-slate-200' />
+                            <FormControl className='h-[90px]'>
+                                <FormLabel htmlFor='password'>Password</FormLabel>
+                                <InputGroup >
+                                    <Input type={show ? 'text' : 'password'} id='password' placeholder='Enter password' className='!bg-slate-100 !border !border-slate-600' {...register("password")} />
+                                    <InputRightElement width='4.5rem'>
+                                        <div onClick={handleClick}>
+                                            {show ? <AiFillEye /> : <AiFillEyeInvisible />}
+                                        </div>
+                                    </InputRightElement>
+                                </InputGroup>
+                                <p className='text-rose-600'>
+                                    {errors.password && errors.password.message}
+                                </p>
                             </FormControl>
-                            <button type="submit" className='w-full py-2 rounded-lg bg-primary-700 text-white mt-7'>Login</button>
+
+                            <button type="submit" className='w-full py-2 rounded-lg bg-primary-700 text-white mt-2'>Login</button>
                             <p className='text-center font-normal text-sm'>Apakah anda sudah punya akun? <Link href={'/auth/register'} className='text-primary-700 font-semibold'>Register</Link></p>
                         </form>
                     </div>

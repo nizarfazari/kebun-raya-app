@@ -38,6 +38,9 @@ const config: Config = {
         dark: {
           500: "#343434",
         },
+        boxShadow: {
+          'testt': '0 0 0 apx rgba(225,29,72,0.3 )',
+        }
       },
     },
   },

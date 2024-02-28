@@ -72,7 +72,7 @@ const Register: React.FunctionComponent<IRegisterProps> = (props) => {
                             <InputGroup >
                                 <Input type={show ? 'text' : 'password'} placeholder='Enter password' className='!bg-slate-100 !border !border-slate-600 focus-visible:!border-primary-500 focus-visible:!shadow-none' {...register('password')} autoComplete='password' />
                                 <InputRightElement width='4.5rem'>
-                                    <div onClick={handleClick}>
+                                    <div onClick={handleClick}  className='cursor-pointer'>
                                         {show ? <AiFillEye /> : <AiFillEyeInvisible />}
                                     </div>
                                 </InputRightElement>
@@ -86,7 +86,7 @@ const Register: React.FunctionComponent<IRegisterProps> = (props) => {
                             <InputGroup >
                                 <Input type={showConfirm ? 'text' : 'password'} placeholder='Enter password' className='!bg-slate-100 !border !border-slate-600 focus-visible:!border-primary-500 focus-visible:!shadow-none' {...register('confirm_password')} autoComplete="confirm_password" />
                                 <InputRightElement width='4.5rem'>
-                                    <div onClick={handleClickConfirm}>
+                                    <div onClick={handleClickConfirm}  className='cursor-pointer'>
                                         {showConfirm ? <AiFillEye /> : <AiFillEyeInvisible />}
                                     </div>
                                 </InputRightElement>

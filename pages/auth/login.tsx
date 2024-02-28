@@ -71,7 +71,7 @@ const Login: React.FunctionComponent<ILoginProps> = (props) => {
                                 <InputGroup >
                                     <Input type={show ? 'text' : 'password'} id='password' placeholder='Enter password' className='!bg-slate-100 !border !border-slate-600 focus-visible:!border-primary-500 focus-visible:!shadow-none' {...register("password")} />
                                     <InputRightElement width='4.5rem'>
-                                        <div onClick={handleClick}>
+                                        <div onClick={handleClick} className='cursor-pointer'>
                                             {show ? <AiFillEye /> : <AiFillEyeInvisible />}
                                         </div>
                                     </InputRightElement>

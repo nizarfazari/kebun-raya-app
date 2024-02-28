@@ -12,8 +12,8 @@ interface IAppProps {
 const Navbar: React.FunctionComponent = (props) => {
 
     const [isOpen, setIsOpen] = useState<boolean>(true)
-    const {route } = useRouter()
-    const [isActive, setIsActive] = useState<string>( route)
+    const { route } = useRouter()
+    const [isActive, setIsActive] = useState<string>(route)
     console.log(isActive)
 
     const datas = [
@@ -67,7 +67,7 @@ const Navbar: React.FunctionComponent = (props) => {
                             {
                                 datas.map((v, i) => (
                                     <li key={i} onClick={(_) => isActiveLink(v.path)}>
-                                        <Link href={v.path} className={`title ${isActive === v.path? 'active' : ''}`} >{v.name}</Link>
+                                        <Link href={v.path} className={`title ${isActive === v.path ? 'active' : ''}`} >{v.name}</Link>
                                     </li>
                                 ))
                             }
@@ -75,8 +75,10 @@ const Navbar: React.FunctionComponent = (props) => {
                         </ul>
                     </div>
                     <div className='items-center gap-4 md:flex  hidden'>
-                        <Buttons name='Sign In' color='primary.400' variant='fillVariant' />
-                        <Buttons name='Sign Up' variant='outlineVariant' color='primary.400' />
+                        <Link href={'/auth/login'} className='px-4   py-2 bg-primary-400 rounded-lg text-white text-sm'>Sign In</Link>
+                        <Link href={'/auth/register'} className='px-4    py-2 border-primary-400 border rounded-lg text-primary-400 text-sm'>Sign Up</Link>
+                        {/* <Buttons name='Sign In' color='primary.400' variant='fillVariant' />
+                        <Buttons name='Sign Up' variant='outlineVariant' color='primary.400' /> */}
                     </div>
                     <div className='block md:hidden'>
                         {isOpen ? <RxHamburgerMenu className='text-2xl' onClick={isOpenNavbar} /> : <AiOutlineClose className='text-2xl' onClick={isOpenNavbar} />}
@@ -90,8 +92,8 @@ const Navbar: React.FunctionComponent = (props) => {
                         <li className='title'>Shop</li>
                         <li className='title'>About</li>
                         <li className='title'>Contact</li>
-                        <Buttons name='Sign In' color='primary.400' variant='fillVariant' className='mt-10' />
-                        <Buttons name='Sign Up' variant='outlineVariant' color='primary.400' />
+                        <Link href={'/auth/login'} className='px-4   py-2 bg-primary-400 rounded-lg text-white text-sm text-center'>Sign In</Link>
+                        <Link href={'/auth/register'} className='px-4    py-2 border-primary-400 border rounded-lg text-primary-400 text-sm text-center'>Sign Up</Link>
                     </ul>
                 </div>
             </div>

@@ -19,14 +19,14 @@ const Shop: React.FunctionComponent<IShopProps> = (props) => {
             </div>
             <div className='container mx-auto  grid grid-cols-8 gap-6 mt-5'>
                 <div className='col-span-2'>
-                    <h2 className='text-2xl'>Category</h2>
+                    <h2 className='sm:text-2xl text-lg'>Category</h2>
                     <div className='mt-4 flex flex-col gap-2'>
                         <p className='mt-4'>Plant</p>
                         <p>Seed</p>
                         <p>Plant</p>
                     </div>
                 </div>
-                <div className='col-span-6 grid grid-cols-3'>
+                <div className='col-span-6 grid lg:grid-cols-3 md:grid-cols-2 grid-cols-1'>
                     <CardPlant />
                 </div>
             </div>

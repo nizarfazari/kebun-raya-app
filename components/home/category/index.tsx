@@ -1,9 +1,9 @@
-import * as React from 'react';
+import React, { useEffect } from 'react';
 import Slider from 'react-slick';
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import CategoryCard from './card';
-
+import useAxios from '@@~/hooks/useAxios'
 
 
 
@@ -12,6 +12,13 @@ interface ICategoryProps {
 }
 
 const Category: React.FunctionComponent<ICategoryProps> = (props) => {
+
+    const { response , isLoading, error } = useAxios({
+        method: 'get',
+        url: 'http://localhost:8000/api/categories'
+    })
+
+    
     let settings = {
         dots: false,
         infinite: false,
@@ -23,10 +30,10 @@ const Category: React.FunctionComponent<ICategoryProps> = (props) => {
             {
                 breakpoint: 1024,
                 settings: {
-                    slidesToShow: 3,
-                    slidesToScroll: 3,
+                    slidesToShow: 2,
+                    slidesToScroll: 2,
                     infinite: true,
-             
+
                 }
             },
             {
@@ -48,32 +55,14 @@ const Category: React.FunctionComponent<ICategoryProps> = (props) => {
     };
     return (
         <>
-            <Slider {...settings}>
-                <div>
-                    <CategoryCard />
-                </div>
-                <div>
-                    <CategoryCard />
-                </div>
-                <div>
-                    <CategoryCard />
-                </div>
-                <div>
-                    <CategoryCard />
-                </div>
-                <div>
-                    <CategoryCard />
-                </div>
-                <div>
-                    <CategoryCard />
-                </div>
-                <div>
-                    <CategoryCard />
-                </div>
-                <div>
-                    <CategoryCard />
-                </div>
-            </Slider>
+            {isLoading ? "loadig " : <Slider {...settings}>
+                {response.map((val : any, key : number) => (
+                    <div key={key}>
+                        <CategoryCard name={val.name} image={val.image} />
+                    </div>
+                ))}
+            </Slider>}
+
         </>
     );
 };

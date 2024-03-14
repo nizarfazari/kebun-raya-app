@@ -13,12 +13,13 @@ interface ICategoryProps {
 
 const Category: React.FunctionComponent<ICategoryProps> = (props) => {
 
-    const { response , isLoading, error } = useAxios({
+    const { response, isLoading, error } = useAxios({
         method: 'get',
-        url: 'http://localhost:8000/api/categories'
+        url: `http://localhost:8000/api/categories`
     })
 
-    
+    console.log(response)
+
     let settings = {
         dots: false,
         infinite: false,
@@ -55,13 +56,17 @@ const Category: React.FunctionComponent<ICategoryProps> = (props) => {
     };
     return (
         <>
-            {isLoading ? "loadig " : <Slider {...settings}>
-                {response.map((val : any, key : number) => (
-                    <div key={key}>
-                        <CategoryCard name={val.name} image={val.image} />
-                    </div>
-                ))}
-            </Slider>}
+            {isLoading ? "loadig " :
+                response ?
+                    <Slider {...settings}>
+                        {response.data.map((val: any, key: number) => (
+                            <div key={key}>
+                                <CategoryCard name={val.name} image={val.image} />
+                            </div>
+                        ))}
+                    </Slider>
+                    :
+                    " asdas"}
 
         </>
     );

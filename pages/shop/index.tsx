@@ -1,11 +1,52 @@
-import * as React from 'react';
-
+import axios from 'axios';
 import { CiSearch } from "react-icons/ci";
 import CardPlant from '~/components/shop/card-plants';
+import { InferGetStaticPropsType } from 'next';
+import { ProductTypes } from '~/types/product';
+import { CategoriesTypes } from '~/types/categories';
+import React from 'react';
+
+
+
 interface IShopProps {
+    products: ProductTypes[];
+    categories: CategoriesTypes[];
 }
 
-const Shop: React.FunctionComponent<IShopProps> = (props) => {
+export const getStaticProps = async () => {
+    try {
+        const [productsResponse, categoriesResponse] = await Promise.all([
+            axios.get(`${process.env.APP_DOMAIN}/api/products`),
+            axios.get(`${process.env.APP_DOMAIN}/api/categories`)
+        ]);
+
+        console.log(productsResponse)
+        // Ambil data dari response
+        const productsData: ProductTypes[] = productsResponse.data.data
+        const categoriesData: CategoriesTypes[] = categoriesResponse.data.data
+        return {
+            props: {
+                products: productsData || [],
+                categories: categoriesData || [],
+            }
+        };
+    } catch (error) {
+        console.error("Error saat mengambil data:", error);
+        return {
+            props: {
+                products: [],
+                categories: [],
+            }
+        };
+    }
+};
+
+
+const Shop: React.FC<IShopProps> = ({
+    products, categories
+}) => {
+
+    console.log(products)
     return (
         <>
             <div className='h-[400px] bg-cover ' style={{ backgroundImage: 'url(/assets/banners.jpg)' }}>
@@ -26,8 +67,10 @@ const Shop: React.FunctionComponent<IShopProps> = (props) => {
                         <p>Plant</p>
                     </div>
                 </div>
-                <div className='col-span-6 grid lg:grid-cols-3 md:grid-cols-2 grid-cols-1'>
-                    <CardPlant />
+                <div className='col-span-6 grid lg:grid-cols-3 md:grid-cols-2 grid-cols-1 gap-5'>
+                    {products && products.map((val, i) => (
+                        <CardPlant key={i} data={val} />
+                    ))}
                 </div>
             </div>
         </>

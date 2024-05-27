@@ -9,7 +9,9 @@ import Plants from '~/components/home/plants';
 
 
 
+
 export default function Home() {
+ 
   return (
     <main >
       <div className="container mx-auto">
@@ -18,8 +20,9 @@ export default function Home() {
             <div className='col-span-1 flex justify-center items-start flex-col order-2 sm:order-1'>
               <div className='text-center md:text-start'>
                 <h1 className='lg:text-6xl  font-bold text-4xl max-w-[400px]'>Plants Make People Merrytt</h1>
+                { }
                 <p className='my-4 lg:text-xl text-md font-normal max-w-[600px]'>Plant gifts, care accesories, and more holday magic delivered do their door-happiness guaranteed</p>
-                <Buttons name='Visit Collections' color='primary.400' variant='outlineVariant' className='!font-bold'/>
+                <Buttons name='Visit Collections' className='!font-bold' colorScheme='primary.400' variant='outlineVariant' />
               </div>
             </div>
             <div className='col-span-1 flex justify-center order-1 sm:order-2' >

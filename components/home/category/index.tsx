@@ -3,7 +3,7 @@ import Slider from 'react-slick';
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import CategoryCard from './card';
-import useAxios from '@@~/hooks/useAxios'
+import useGet from '@@~/hooks/useGet'
 
 
 
@@ -13,9 +13,8 @@ interface ICategoryProps {
 
 const Category: React.FunctionComponent<ICategoryProps> = (props) => {
 
-    const { response, isLoading, error } = useAxios({
-        method: 'get',
-        url: `http://localhost:8000/api/categories`
+    const { response, isLoading, error } = useGet({
+        url: `/categories`
     })
 
     console.log(response)

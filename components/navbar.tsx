@@ -4,8 +4,10 @@ import React, { useEffect, useState } from 'react';
 import { RxHamburgerMenu } from "react-icons/rx";
 import { AiOutlineClose } from "react-icons/ai";
 import Link from 'next/link';
+import { IoPersonSharp } from "react-icons/io5";
 import { useRouter } from 'next/router';
-import Buttons from './button';
+import { FaShoppingCart } from "react-icons/fa";
+import { Button, Popover, PopoverArrow, PopoverBody, PopoverCloseButton, PopoverContent, PopoverHeader, PopoverTrigger } from '@chakra-ui/react';
 interface IAppProps {
 }
 
@@ -14,8 +16,7 @@ const Navbar: React.FunctionComponent = (props) => {
     const [isOpen, setIsOpen] = useState<boolean>(true)
     const { route } = useRouter()
     const [isActive, setIsActive] = useState<string>(route)
-    console.log(isActive)
-
+    const [isToken, setToken] = useState<boolean>(false)
     const datas = [
         {
             name: 'Home',
@@ -41,19 +42,16 @@ const Navbar: React.FunctionComponent = (props) => {
     const isActiveLink = (v: string) => {
         setIsActive(v)
     }
-    const handleResize = () => {
-        setIsOpen(window.innerWidth > 425 ? false : true)
-    };
+
 
     useEffect(() => {
-        // Tambahkan event listener
-        window.addEventListener('resize', handleResize);
-
-        // Bersihkan event listener saat komponen di-unmount
-        return () => {
-            window.removeEventListener('resize', handleResize);
-        };
-    }, []);
+        const token = localStorage.getItem('token')
+        if (token) {
+            setToken(true);
+        }else{
+            setToken(false)
+        }
+    }, [isToken])
 
     return (
         <header className='h-[85px]'>
@@ -74,11 +72,19 @@ const Navbar: React.FunctionComponent = (props) => {
 
                         </ul>
                     </div>
-                    <div className='items-center gap-4 md:flex  hidden'>
-                        <Link href={'/auth/login'} className='px-4   py-2 bg-primary-400 rounded-lg text-white text-sm'>Sign In</Link>
-                        <Link href={'/auth/register'} className='px-4    py-2 border-primary-400 border rounded-lg text-primary-400 text-sm'>Sign Up</Link>
-                        {/* <Buttons name='Sign In' color='primary.400' variant='fillVariant' />
-                        <Buttons name='Sign Up' variant='outlineVariant' color='primary.400' /> */}
+                    <div>
+                        {isToken ?
+                            <div className='hidden sm:flex items-center gap-5'>
+                                <Link href={'/cart'} className='flex relative'>
+                                    <FaShoppingCart className='text-lg' />
+                                </Link>
+                                <IoPersonSharp />
+                               
+                            </div> :
+                            <div className='items-center gap-4 md:flex  hidden'>
+                                <Link href={'/auth/login'} className='px-4   py-2 bg-primary-400 rounded-lg text-white text-sm'>Sign In</Link>
+                                <Link href={'/auth/register'} className='px-4    py-2 border-primary-400 border rounded-lg text-primary-400 text-sm'>Sign Up</Link>
+                            </div>}
                     </div>
                     <div className='block md:hidden'>
                         {isOpen ? <RxHamburgerMenu className='text-2xl' onClick={isOpenNavbar} /> : <AiOutlineClose className='text-2xl' onClick={isOpenNavbar} />}

@@ -7,6 +7,10 @@ import { AiFillEye, AiFillEyeInvisible } from 'react-icons/ai';
 import { yupResolver } from "@hookform/resolvers/yup"
 import * as yup from "yup"
 import AlertChakra from '~/components/alert-chakra';
+import axios from 'axios';
+import Cookies from 'js-cookie'
+import { useRouter } from 'next/router';
+
 
 
 interface ILoginProps {
@@ -21,6 +25,7 @@ const schema = yup
 
 const Login: React.FunctionComponent<ILoginProps> = (props) => {
     const [show, setShow] = useState<boolean>(false)
+    const router = useRouter()
     const handleClick = () => setShow(!show)
     type Inputs = {
         email: string
@@ -34,9 +39,21 @@ const Login: React.FunctionComponent<ILoginProps> = (props) => {
     } = useForm<Inputs>({
         resolver: yupResolver(schema),
     })
-    const onSubmit: SubmitHandler<Inputs> = (data) => console.log(data)
 
-    console.log(errors)
+
+
+    const onSubmit: SubmitHandler<Inputs> = async (data) => {
+        try {
+            const response = await axios.post('http://localhost:8000/api/login', data);
+            localStorage.setItem('token', JSON.stringify(response.data.token));
+            Cookies.set('token', response.data.token, { expires: 7 });
+            router.push('/')
+            console.log('Data berhasil dikirim:', response.data);
+        } catch (error) {
+            console.error('Error saat mengirim data:', error);
+        }
+    }
+
     return (
         <>
             <div className='container mx-auto'>
@@ -56,9 +73,9 @@ const Login: React.FunctionComponent<ILoginProps> = (props) => {
                             menjadi lebih mudah
                         </h2>
                         <form action="" className='flex flex-col gap-4 max-w-[500px] mx-auto' onSubmit={handleSubmit(onSubmit)}>
-                        {Object.keys(errors).length > 0 && (
-                            <AlertChakra description='Terdapat masalah pada form' />
-                        )}
+                            {Object.keys(errors).length > 0 && (
+                                <AlertChakra description='Terdapat masalah pada form' />
+                            )}
                             <FormControl className='h-[80px]'>
                                 <FormLabel htmlFor='email'>Email address</FormLabel>
                                 <Input type='email' id='email' className='!bg-slate-100 !border !border-slate-600 focus-visible:!border-primary-500 focus-visible:!shadow-none' {...register('email')} />

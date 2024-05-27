@@ -1,22 +1,18 @@
-import React, { forwardRef } from 'react';
-import { Button } from '@chakra-ui/react';
+import { Button, ButtonProps } from '@chakra-ui/react'; // Mengimpor ButtonProps dari Chakra UI
 
-type PropsButtons = {
-    color?: string;
-    variant?: string;
+type PropsButtons = ButtonProps & {
+    // Gunakan & untuk menggabungkan PropsButtons dengan ButtonProps dari Chakra UI
     name: string;
     className?: string;
 };
 
-const Buttons: React.ForwardRefRenderFunction<HTMLButtonElement, PropsButtons> = (
-    { color = 'blue', variant = 'solid', name, className, ...rest },
-    ref
-) => {
+const Buttons = ({ name, className, ...rest }: PropsButtons) => {
+    // Tidak perlu menyertakan color dan variant karena ini sudah ada di ButtonProps dari Chakra UI
     return (
-        <Button ref={ref} colorScheme={color} variant={variant} className={className} {...rest}>
+        <Button {...rest} className={className}>
             {name}
         </Button>
     );
 };
 
-export default forwardRef(Buttons);
+export default Buttons;

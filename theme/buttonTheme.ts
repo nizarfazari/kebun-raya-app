@@ -12,7 +12,6 @@ const sizes = {
   }),
 };
 
-
 const fillVariant = defineStyle((props) => {
   const { colorScheme: c } = props;
   return {
@@ -39,31 +38,30 @@ const fillVariant = defineStyle((props) => {
   };
 });
 
-
 const fillDarkVariant = defineStyle((props) => {
-    const { colorScheme: c } = props;
-    return {
-      fontFamily: "sans-serif",
-      bg: `${c}.600`,
-      fontWeight: "medium",
-      color: "white",
-      border: `1px solid`,
-      borderRadius: "xl",
-      transition: "transform 0.15s ease-out, background 0.15s ease-out",
+  const { colorScheme: c } = props;
+  return {
+    fontFamily: "sans-serif",
+    bg: `${c}.600`,
+    fontWeight: "medium",
+    color: "white",
+    border: `1px solid`,
+    borderRadius: "xl",
+    transition: "transform 0.15s ease-out, background 0.15s ease-out",
+    _dark: {
+      bg: `${c}`,
+      color: "gray.800",
+    },
+
+    _hover: {
+      color: `white`,
+      bg: `${c}.800`,
       _dark: {
-        bg: `${c}`,
-        color: "gray.800",
+        bg: `${c}.200`,
       },
-  
-      _hover: {
-        color: `white`,
-        bg: `${c}.800`,
-        _dark: {
-          bg: `${c}.200`,
-        },
-      },
-    };
-  });
+    },
+  };
+});
 
 const outlineVariant = defineStyle((props) => {
   const { colorScheme: c } = props;
@@ -96,7 +94,7 @@ export const buttonTheme = defineStyleConfig({
   variants: {
     fillVariant: fillVariant,
     outlineVariant,
-    fillDarkVariant
+    fillDarkVariant,
   },
   defaultProps: {
     colorScheme: "purple", // set the default color scheme to purple

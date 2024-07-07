@@ -8,7 +8,7 @@ interface ICategoryCardProps {
 }
 
 const CategoryCard: React.FunctionComponent<ICategoryCardProps> = ({ name, image = "/assets/category/category_1.png" }) => {
-    console.log(image)
+    
     return (
         <>
             <div className='text-center sm:max-w-[250px] cursor-pointer mx-auto'>

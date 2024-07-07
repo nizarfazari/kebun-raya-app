@@ -13,14 +13,12 @@ import { fonts } from '../lib/font'
 export default function MyApp({ Component, pageProps }: AppProps) {
 
   return (
-    <>
-      <main className={fonts.roboto.className}>
-        <ChakraProvider theme={theme}>
-          <Layout>
-            <Component {...pageProps} />
-          </Layout>
-        </ChakraProvider>
-      </main>
+    <>  
+      <ChakraProvider theme={theme}>
+        <Layout>
+          <Component {...pageProps} />
+        </Layout>
+      </ChakraProvider>
     </>
   );
 }

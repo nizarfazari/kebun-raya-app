@@ -5,13 +5,15 @@ import React, { useState } from 'react';
 import Buttons from '~/components/button';
 import { ProductTypes } from '~/types/product';
 import DOMPurify from "dompurify";
+import { AbsoluteCenter, Box, Divider, useToast } from '@chakra-ui/react';
+import useToastStatus from '~/hooks/useToast';
 
 interface IDetailShopProps {
     product: ProductTypes
 }
 
 const DetailShop: React.FunctionComponent<IDetailShopProps> = ({ product }) => {
-    console.log(product)
+    const showToast = useToastStatus();
     const [image, setImage] = useState<string>('/assets/shop/tanaman.jpg')
 
     const changeImage = (value: string) => {
@@ -21,16 +23,24 @@ const DetailShop: React.FunctionComponent<IDetailShopProps> = ({ product }) => {
     const addToCart = async (id: number) => {
         const tokenString = localStorage.getItem('token')
         const token = tokenString ? JSON.parse(tokenString) : null;
-        console.log(token)
         try {
-            await axios.post(`http://127.0.0.1:8000/api/cart/${id}`, null, {
+            const { data} = await axios.post(`http://127.0.0.1:8000/api/cart/${id}`, null, {
                 headers: {
                     Authorization: `Bearer ${token}`,
                 },
+
             })
+
+            if(data.status == 301){
+            return showToast('warning', 'Produk telah di ambil');    
+            }
+           
+            showToast('success', 'Item telah masuk keranjang');
         } catch (error) {
-            console.log(error)
+            console.log(error);
+            showToast('error', 'Failed to add item to cart');   
         }
+
     }
 
     return (
@@ -53,8 +63,8 @@ const DetailShop: React.FunctionComponent<IDetailShopProps> = ({ product }) => {
                     </div>
                     <h1 className='text-3xl font-semibold mb-2'>{product?.name}</h1>
                     <div dangerouslySetInnerHTML={{ __html: product.description }} />
-                    <p className='text-primary-700 font-bold text-2xl mt-5'>Rp. {product?.harga}</p>
-                    <button onClick={() => addToCart(product.id)}>Tambahkan ke Keranjang</button>
+                    <p className='text-black font-bold text-4xl mt-5'>Rp. {product?.harga}</p>
+                    <Buttons name='Tambahkan Ke Keranjang' colorScheme='primary' variant='fillDarkVariant' className='!font-bold !px-10 mt-4 !rounded-lg' onClick={() => addToCart(product.id)} />
                 </div>
             </div>
         </div>

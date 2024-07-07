@@ -1,13 +1,10 @@
 import Image from 'next/image';
 import React, { useEffect, useState } from 'react';
 
-import { RxHamburgerMenu } from "react-icons/rx";
 import { AiOutlineClose } from "react-icons/ai";
 import Link from 'next/link';
-import { IoPersonSharp } from "react-icons/io5";
 import { useRouter } from 'next/router';
-import { FaShoppingCart } from "react-icons/fa";
-import { Button, Popover, PopoverArrow, PopoverBody, PopoverCloseButton, PopoverContent, PopoverHeader, PopoverTrigger } from '@chakra-ui/react';
+import { FaShoppingCart, FaUser, FaBars } from "react-icons/fa";
 interface IAppProps {
 }
 
@@ -27,10 +24,6 @@ const Navbar: React.FunctionComponent = (props) => {
             path: '/shop'
         },
         {
-            name: 'About',
-            path: '/about'
-        },
-        {
             name: 'Contact',
             path: '/contact'
         },
@@ -48,7 +41,7 @@ const Navbar: React.FunctionComponent = (props) => {
         const token = localStorage.getItem('token')
         if (token) {
             setToken(true);
-        }else{
+        } else {
             setToken(false)
         }
     }, [isToken])
@@ -77,9 +70,11 @@ const Navbar: React.FunctionComponent = (props) => {
                             <div className='hidden sm:flex items-center gap-5'>
                                 <Link href={'/cart'} className='flex relative'>
                                     <FaShoppingCart className='text-lg' />
+                                </Link> 
+                                <Link href={'/profil'}>
+                                    <FaUser />
                                 </Link>
-                                <IoPersonSharp />
-                               
+
                             </div> :
                             <div className='items-center gap-4 md:flex  hidden'>
                                 <Link href={'/auth/login'} className='px-4   py-2 bg-primary-400 rounded-lg text-white text-sm'>Sign In</Link>
@@ -87,7 +82,7 @@ const Navbar: React.FunctionComponent = (props) => {
                             </div>}
                     </div>
                     <div className='block md:hidden'>
-                        {isOpen ? <RxHamburgerMenu className='text-2xl' onClick={isOpenNavbar} /> : <AiOutlineClose className='text-2xl' onClick={isOpenNavbar} />}
+                        {isOpen ? <FaBars className='text-2xl' onClick={isOpenNavbar} /> : <AiOutlineClose className='text-2xl' onClick={isOpenNavbar} />}
                     </div>
                 </div>
             </nav>

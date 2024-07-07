@@ -48,14 +48,11 @@ const fillDarkVariant = defineStyle((props) => {
     border: `1px solid`,
     borderRadius: "xl",
     transition: "transform 0.15s ease-out, background 0.15s ease-out",
-    _dark: {
-      bg: `${c}`,
-      color: "gray.800",
-    },
+    
 
     _hover: {
       color: `white`,
-      bg: `${c}.800`,
+      bg: `${c}.700`,
       _dark: {
         bg: `${c}.200`,
       },

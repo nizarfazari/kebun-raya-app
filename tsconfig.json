@@ -33,6 +33,6 @@
     "**/*.tsx",
     ".next/types/**/*.ts",
     "hooks/useAxios.js"
-  ],
+, "hooks/useGet.js"  ],
   "exclude": ["node_modules", ".next", "dist"]
 }

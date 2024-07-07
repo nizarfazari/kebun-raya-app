@@ -1,30 +1,32 @@
-// will change to react-query
 import { useEffect, useRef, useState } from 'react'
 import axios, { AxiosRequestConfig, AxiosResponse } from 'axios'
 import { useRouter } from 'next/router'
 
-/**
- * Simplify axios client-side data fetching
- *
- * @param {AxiosRequestConfig} axiosParams Params for the request
- * @returns {AxiosResponse}  The response from the API
- * @returns {Boolean}  is loading
- * @returns {Error|null}  error
- */
-export default function useGet(axiosParams) {
-    const [response, setResponse] = useState(undefined)
-    const [error, setError] = useState(null)
-    const [isLoading, setIsLoading] = useState(true)
-    const isMountedRef = useRef(false)
+interface AxiosParams {
+    url: string;
+    // Add other properties if needed
+}
+
+interface ApiResponse<T> {
+    response: T | undefined;
+    isLoading: boolean;
+    error: Error | null;
+}
+
+export default function useGet(axiosParams: AxiosParams): ApiResponse<any> {
+    const [response, setResponse] = useState<any>(undefined)
+    const [error, setError] = useState<Error | null>(null)
+    const [isLoading, setIsLoading] = useState<boolean>(true)
+    const isMountedRef = useRef<boolean>(false)
     const router = useRouter() // re-fetch when locale changes
 
-    const fetchData = async params => {
+    const fetchData = async (params: AxiosParams) => {
         try {
             const result = await axios.get(`http://127.0.0.1:8000/api${params.url}`)
             if (isMountedRef.current) {
                 setResponse(result.data)
             }
-        } catch (error) {
+        } catch (error : any) {
             if (isMountedRef.current) {
                 setError(error)
             }

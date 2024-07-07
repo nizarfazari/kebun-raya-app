@@ -1,55 +1,50 @@
 import { create } from "zustand";
+import { persist } from "zustand/middleware";
 
-type Delivery = {
-  name: string;
+type DeliveryData = {
+  first_name: string;
+  last_name: string;
   email: string;
-  province: string;
   city: string;
   courier: string;
-  nameCourier: string;
+  province: string;
+};
+
+type Actions = {
+  setDataDelivery: (data: DeliveryData) => void;
+  resetDataDelivery: () => void; // Tambahkan aksi resetDataDelivery
+};
+
+type DeliveryState = {
+  dataDelivery: DeliveryData;
   total_weight: string;
   total_price: string;
 };
 
-type DeliveryData = {
-  name: string;
-  email: string;
-  city: string;
-  courier: string;
-  nameCourier: string;
-};
-
-type Actions = {
-  setProvince?: (province: string) => void;
-  setCity?: () => void;
-  setCourier?: () => void;
-  setDataDelivery?: ({
-    name,
-    email,
-    city,
-    courier,
-    nameCourier,
-  }: DeliveryData) => void;
-};
-
-export const useDelivery = create<Delivery & Actions>((set) => ({
-  name: "",
+const defaultDataDelivery: DeliveryData = {
+  first_name: "",
+  last_name: "",
   email: "",
-  province: "",
   city: "",
   courier: "",
-  total_weight: "",
-  total_price: "",
-  nameCourier: "",
-  setCourier : () => {},
-  setProvince: (province: string) => set({ province: province }),
-  setDataDelivery: ({
-    name,
-    email,
-    city,
-    courier,
-    nameCourier,
-  }: DeliveryData) => {
-    set({ name, email, city, courier, nameCourier });
-  },
-}));
+  province: "",
+};
+
+export const useDelivery = create<DeliveryState & Actions>()(
+  persist(
+    (set) => ({
+      dataDelivery: defaultDataDelivery,
+      total_weight: "",
+      total_price: "",
+      setDataDelivery: (data: DeliveryData) => {
+        set({ dataDelivery: data });
+      },
+      resetDataDelivery: () => {
+        set({ dataDelivery: defaultDataDelivery });
+      },
+    }),
+    {
+      name: "delivery-data",
+    }
+  )
+);

@@ -3,7 +3,8 @@ import Slider from 'react-slick';
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import CategoryCard from './card';
-import useGet from '@@~/hooks/useGet'
+import useGet from '~/hooks/useGet';
+
 
 
 
